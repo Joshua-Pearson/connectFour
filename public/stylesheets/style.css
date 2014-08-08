@@ -3,51 +3,40 @@
   font: 4em "Lucida Grande", Helvetica, Arial, sans-serif;
   padding: 0 0 1em 0;
 }
-
-.red {
-  border: 2px solid #a1a1a1;
-  padding: 10px 11px;
-  background: red;
-  width: 2px;
-  border-radius: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1%;
+.centered {
+  margin: 0 0 0 15%;
+}
+.board {
+  width: 42%; 
 }
 
-.blue {
-  border: 2px solid #a1a1a1;
-  padding: 10px 11px;
-  background: blue;
-  width: 2px;
-  border-radius: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1%;
+body {
+  background-color: gray;
 }
 
-.blank {
-  border: 2px solid #a1a1a1;
-  padding: 10px 11px;
-  background: white;
-  width: 2px;
-  border-radius: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1%;
+table tbody tr td.position {
+  padding: 1em;
+  background-color: yellow;
+}
+table tbody tr td.position .circle {
+  padding: 3em; 
+  background-color: #fff; 
+  border-radius: 50%; 
+  cursor: pointer;
+}
+table tbody tr td.position .circle.filled-true-1 {
+  background-color:#df691a;
+}
+table tbody tr td.position .circle.filled-true-2 {
+  background-color:#47a447;
 }
 
-.base-class {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+table tbody tr td.position .circle.visible-false {
+  background:#2b3e50;
 }
-
-.base-class.red-class {
-  color: red;
-  font-size: 3em;
+table tbody tr td.position .circle.visible-true.player-1 {
+  background:#df691a;
 }
-
-.base-class.blue-class {
-  color: blue;
-  font-size: 3em;
+table tbody tr td.position .circle.visible-true.player-2 {
+  background:#47a447;
 }
