@@ -1,6 +1,44 @@
-<h1>This is in main-game.ejs</h1>
-
-<h2>{{game.hiThere}}</h2>
-
-
-<h3>{{game.isSet("Whateveisclever")}}</h3>
+<div class="container">
+  <div class="row">
+    <div ng-repeat="column in game.columnOne track by $index">
+      <div class="col-xs-1">
+        <div ng-click="game.move(column)" ng-class="column.color">{{column.color}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-repeat="column in game.columnTwo track by $index">
+      <div class="col-xs-1">
+        <div ng-click="game.move(column)" ng-class="column.color">{{column.color}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-repeat="column in game.columnThree track by $index">
+      <div class="col-xs-1">
+        <div ng-click="game.move(column)" ng-class="column.color">{{column.color}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-repeat="column in game.columnFour track by $index">
+      <div class="col-xs-1">
+        <div ng-click="game.move(column)" ng-class="column.color">{{column.color}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-repeat="column in game.columnFive track by $index">
+      <div class="col-xs-1">
+        <div ng-click="game.move(column)" ng-class="column.color">{{column.color}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div ng-repeat="column in game.columnSix track by $index">
+      <div class="col-xs-1">
+        <div ng-click="game.move(column)" ng-class="column.color">{{column.nothing}}</div>
+      </div>
+    </div>
+  </div>
+</div>
