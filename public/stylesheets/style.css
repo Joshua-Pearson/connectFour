@@ -13,6 +13,15 @@
 body {
   background-color: gray;
 }
+table tbody tr td.placeholder {
+  padding: 4.3em;
+}
+
+table tbody tr td.placeholder .circle {
+  background-color: #fff; 
+  border-radius: 50%; 
+  cursor: pointer;
+}
 
 table tbody tr td.position {
   padding: 1em;
@@ -31,12 +40,32 @@ table tbody tr td.position .circle.filled-true-2 {
   background-color:#47a447;
 }
 
-table tbody tr td.position .circle.visible-false {
-  background:#2b3e50;
+table tbody tr td.placeholder .circle.visible-false {
+  background: white;
 }
-table tbody tr td.position .circle.visible-true.player-1 {
-  background:#df691a;
+table tbody tr td.placeholder .circle.visible-true.player-1 {
+  background: #df691a;
 }
-table tbody tr td.position .circle.visible-true.player-2 {
-  background:#47a447;
+table tbody tr td.placeholder .circle.visible-true.player-2 {
+  background: #47a447;
+}
+
+#new_game_button {
+  width: 30%;
+}
+
+.winner {
+  color: red;
+}
+
+.my-show-hide-animation.ng-hide-add,
+.my-show-hide-animation.ng-hide-remove {
+  -webkit-transition:0.2s linear all;
+  transition:0.2s linear all;
+  display:block!important;
+  opacity:1;
+}
+
+.my-show-hide-animation.ng-hide {
+  opacity:0;
 }

@@ -1,10 +1,25 @@
 <div class="container">
+  <h2 class="winner my-show-hide-animation" ng-show="game.winner">Player {{game.winner.playerNumber}} WINS!</h2>
+  <h4 class="turn">Player {{game.currentPlayer.playerNumber}}'s Turn</h4>
+   <button type="button" class="btn btn-success  my-show-hide-animation" ng-click="game.newGame()" ng-hide="game.moveCount > 0" id="new_game_button" ng-animate="'animate'">New Game</button>
+
+  <div class="placeholders centered">
+    <table table-bordered>
+      <tbody>
+        <tr ng-repeat="placeholders in game.placeholders">
+          <td ng-repeat="placeholder in placeholders" class="placeholder" ng-mouseenter="game.showPlaceholderOnTop(placeholder)" ng-mouseleave="game.hidePlaceholderOnTop(placeholder)" ng-click="game.move(placeholder)">
+            <div class="circle visible-{{placeholder.visible}} player-{{placeholder.player}}"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="board centered">
     <table table-bordered>
       <tbody>
         <tr ng-repeat="row in game.board">
-          <td class="position" ng-repeat="column in row" ng-click="move(column)" ng-mouseenter="showPlaceholder($index)" ng-mouseleave="hidePlaceholder($index)">
-            <div class="circle filled-{{column.filled}}-{{column.player}}"></div>
+          <td class="position" ng-repeat="column in row track by $index" ng-click="game.move(column)" ng-mouseenter="game.showPlaceholder(column)" ng-mouseleave="game.hidePlaceholder(column)">
+            <div class="circle filled-{{column.filled}}-{{column.player}}">{{$index}}</div>
           </td>
         </tr>
       </tbody>
