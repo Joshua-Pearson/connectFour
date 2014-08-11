@@ -7,36 +7,47 @@
       restrict: "E",
       templateUrl: "partials/main-game.ejs",
       controller: function() {
-        this.moveCount = 0;
+        this.moveCount = 1;
         var _this = this;
-        
+        this.currentPlayer = {};
+
         function player(playerNumber, value) {
           this.playerNumber = playerNumber;
-          this. value = value;
+          this.value = value;
         };
 
-        this.playerOne = new player("One", "red")
-        this.playerTwo = new player("Two", "blue")
+        this.playerOne = new player(1, "red")
+        this.playerTwo = new player(2, "black")
         this.draw = false;
         this.winner = false;
 
-        this.currentPlayer = this.playerOne;       
+        this.determinePlayer = function() {
+          if (this.moveCount % 2 === 0) {
+            this.currentPlayer = this.playerTwo;
+          } else {
+            this.currentPlayer = this.playerOne;
+          }
+          return this.currentPlayer;
+        };
 
         this.move = function(circle) {
-          if (this.currentPlayer === this.playerOne && circle.isPlayed === false) {
-            console.log(this.board.reverse());
-            console.log(circle.index);
-            circle.isPlayed = true;
-            circle.color = this.currentPlayer.value;
-            this.currentPlayer = this.playerTwo;
+          this.determinePlayer();
+          var movedCircle;
+          var moveArray = [];
+          this.board.forEach(function(array) {
+            array.forEach(function(ele) {
+              if (ele.index === circle.index) {
+                moveArray.push(ele);
+              }
+              return moveArray;
+            });
+          });
+          movedCircle = _.findLast(moveArray, { isPlayed: false });
+          if (movedCircle !== undefined) {
+            movedCircle.player = this.currentPlayer;
+            movedCircle.isPlayed = true;
             this.moveCount ++;
-          } else if (this.currentPlayer === this.playerTwo && circle.isPlayed === false)  {
-            console.log(circle);
-            console.log(circle.index);
-            circle.isPlayed = true;
-            circle.color = this.currentPlayer.value;
-            this.currentPlayer = this.playerOne;
-            this.moveCount ++;
+            this.determinePlayer();
           } else {
             alert("illegal move")
           }
@@ -46,9 +57,14 @@
 
         };
 
+        this.checkForWin = function() {
+
+        };
+
         this.showPlaceholderOnTop = function(placeholder) {
+          this.determinePlayer();
           placeholder.visible = true;
-          placeholder.player = 1;
+          placeholder.player = this.currentPlayer;
         };
 
         this.hidePlaceholderOnTop = function(placeholder) {
@@ -57,12 +73,16 @@
         };
 
         this.showPlaceholder = function(circle) {
+          var visiblePlaceholder;
+          this.determinePlayer();
           this.placeholders[0].forEach(function(ele) {
             if (ele.column === circle.index) {
-              ele.visible = true;
-              ele.player = 1;
+              visiblePlaceholder = ele;
             }
+            return visiblePlaceholder;
           });
+          visiblePlaceholder.visible = true;
+          visiblePlaceholder.player = this.currentPlayer;
         };
 
         this.hidePlaceholder = function(circle) {

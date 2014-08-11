@@ -1,14 +1,14 @@
 <div class="container">
   <h2 class="winner my-show-hide-animation" ng-show="game.winner">Player {{game.winner.playerNumber}} WINS!</h2>
   <h4 class="turn">Player {{game.currentPlayer.playerNumber}}'s Turn</h4>
-   <button type="button" class="btn btn-success  my-show-hide-animation" ng-click="game.newGame()" ng-hide="game.moveCount > 0" id="new_game_button" ng-animate="'animate'">New Game</button>
+   <button type="button" class="btn btn-success  my-show-hide-animation" ng-click="game.newGame()" ng-hide="game.moveCount > 1" id="new_game_button" ng-animate="'animate'">New Game</button>
 
   <div class="placeholders centered">
     <table table-bordered>
       <tbody>
         <tr ng-repeat="placeholders in game.placeholders">
-          <td ng-repeat="placeholder in placeholders" class="placeholder" ng-mouseenter="game.showPlaceholderOnTop(placeholder)" ng-mouseleave="game.hidePlaceholderOnTop(placeholder)" ng-click="game.move(placeholder)">
-            <div ng-class="{ 'circle visible-true player-2'  : (placeholder.visible === true && placeholder.player === 2), 'circle visible-true player-1'  : (placeholder.visible === true && placeholder.player === 1) }"></div>
+          <td ng-repeat="placeholder in placeholders" class="placeholder" ng-mouseenter="game.showPlaceholderOnTop(placeholder)" ng-mouseleave="game.hidePlaceholderOnTop(placeholder)">
+            <div ng-class="{ 'circle visible-true player-2'  : (placeholder.visible === true && placeholder.player.playerNumber === 2), 'circle visible-true player-1'  : (placeholder.visible === true && placeholder.player.playerNumber === 1) }"></div>
           </td>
         </tr>
       </tbody>
@@ -19,7 +19,7 @@
       <tbody>
         <tr ng-repeat="row in game.board">
           <td class="position" ng-repeat="column in row track by $index" ng-click="game.move(column)" ng-mouseenter="game.showPlaceholder(column)" ng-mouseleave="game.hidePlaceholder(column)">
-            <div class="circle filled-{{column.filled}}-{{column.player}}">{{$index}}</div>
+            <div class="circle" ng-class="{ 'circle filled-true-2'  : (column.isPlayed === true && column.player.playerNumber === 2), 'circle filled-true-1'  : (column.isPlayed === true && column.player.playerNumber === 1) }"></div>
           </td>
         </tr>
       </tbody>
