@@ -14,10 +14,11 @@ body {
   background-color: gray;
 }
 table tbody tr td.placeholder {
-  padding: 4.3em;
+  padding: 4em;
 }
 
 table tbody tr td.placeholder .circle {
+  padding: 3em;
   background-color: #fff; 
   border-radius: 50%; 
   cursor: pointer;
@@ -41,13 +42,13 @@ table tbody tr td.position .circle.filled-true-2 {
 }
 
 table tbody tr td.placeholder .circle.visible-false {
-  background: white;
+  background-color: gray;
 }
 table tbody tr td.placeholder .circle.visible-true.player-1 {
-  background: #df691a;
+  background-color: red;
 }
 table tbody tr td.placeholder .circle.visible-true.player-2 {
-  background: #47a447;
+  background-color: black;
 }
 
 #new_game_button {
