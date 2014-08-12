@@ -8,18 +8,17 @@
       templateUrl: "partials/main-game.ejs",
       controller: function($scope) {
         this.moveCount = 1;
+        this.draw = false;
+        this.winner = false;
         var _this = this;
         this.currentPlayer = {};
 
-        function player(playerNumber, value) {
+        function player(playerNumber) {
           this.playerNumber = playerNumber;
-          this.value = value;
         };
 
-        this.playerOne = new player(1, "red")
-        this.playerTwo = new player(2, "black")
-        this.draw = false;
-        this.winner = false;
+        this.playerOne = new player(1)
+        this.playerTwo = new player(2)
 
         this.determinePlayer = function() {
           if (this.moveCount % 2 === 0) {
@@ -95,11 +94,34 @@
         };
 
         this.newGame = function() {
-
+          this.moveCount = 1;
+          this.currentPlayer = {};
+          this.draw = false;
+          this.winner = false;
+          this.placeholders = [
+            [{visible: false, player: 0, column: 0}, {visible: false, player: 0, column: 1}, {visible: false, player: 0, column: 2}, {visible: false, player: 0, column: 3}, {visible: false, player: 0, column: 4}, {visible: false, player: 0, column: 5}, {visible: false, player: 0, column: 6}]    
+          ];
+          this.board = [
+            [{isPlayed: false, animation: false, player: 0, row: 0, index: 0}, {isPlayed: false, animation: false, player: 0, row: 0, index: 1}, {isPlayed: false, animation: false, player: 0, row: 0, index: 2}, {isPlayed: false, animation: false, player: 0, row: 0, index: 3}, {isPlayed: false, animation: false, player: 0, row: 0, index: 4}, {isPlayed: false, animation: false, player: 0, row: 0, index: 5}, {isPlayed: false, animation: false, player: 0, row: 0, index: 6}],
+            [{isPlayed: false, animation: false, player: 0, row: 1, index: 0}, {isPlayed: false, animation: false, player: 0, row: 1, index: 1}, {isPlayed: false, animation: false, player: 0, row: 1, index: 2}, {isPlayed: false, animation: false, player: 0, row: 1, index: 3}, {isPlayed: false, animation: false, player: 0, row: 1, index: 4}, {isPlayed: false, animation: false, player: 0, row: 1, index: 5}, {isPlayed: false, animation: false, player: 0, row: 1, index: 6}],
+            [{isPlayed: false, animation: false, player: 0, row: 2, index: 0}, {isPlayed: false, animation: false, player: 0, row: 2, index: 1}, {isPlayed: false, animation: false, player: 0, row: 2, index: 2}, {isPlayed: false, animation: false, player: 0, row: 2, index: 3}, {isPlayed: false, animation: false, player: 0, row: 2, index: 4}, {isPlayed: false, animation: false, player: 0, row: 2, index: 5}, {isPlayed: false, animation: false, player: 0, row: 2, index: 6}],
+            [{isPlayed: false, animation: false, player: 0, row: 3, index: 0}, {isPlayed: false, animation: false, player: 0, row: 3, index: 1}, {isPlayed: false, animation: false, player: 0, row: 3, index: 2}, {isPlayed: false, animation: false, player: 0, row: 3, index: 3}, {isPlayed: false, animation: false, player: 0, row: 3, index: 4}, {isPlayed: false, animation: false, player: 0, row: 3, index: 5}, {isPlayed: false, animation: false, player: 0, row: 3, index: 6}],
+            [{isPlayed: false, animation: false, player: 0, row: 4, index: 0}, {isPlayed: false, animation: false, player: 0, row: 4, index: 1}, {isPlayed: false, animation: false, player: 0, row: 4, index: 2}, {isPlayed: false, animation: false, player: 0, row: 4, index: 3}, {isPlayed: false, animation: false, player: 0, row: 4, index: 4}, {isPlayed: false, animation: false, player: 0, row: 4, index: 5}, {isPlayed: false, animation: false, player: 0, row: 4, index: 6}],
+            [{isPlayed: false, animation: false, player: 0, row: 5, index: 0}, {isPlayed: false, animation: false, player: 0, row: 5, index: 1}, {isPlayed: false, animation: false, player: 0, row: 5, index: 2}, {isPlayed: false, animation: false, player: 0, row: 5, index: 3}, {isPlayed: false, animation: false, player: 0, row: 5, index: 4}, {isPlayed: false, animation: false, player: 0, row: 5, index: 5}, {isPlayed: false, animation: false, player: 0, row: 5, index: 6}]
+          ];
         };
 
         this.checkForWin = function() {
 
+        };
+
+        this.giveUp = function() {
+          if (this.moveCount % 2 === 0) {
+            this.winner = this.playerOne;
+          } else {
+            this.winner = this.playerTwo;
+          }
+          return this.winner;
         };
 
         this.showPlaceholderOnTop = function(placeholder) {
@@ -136,7 +158,7 @@
         };
 
         this.placeholders = [
-          [{visible: false, user: "", player: 0, column: 0}, {visible: false, user:"", player: 0, column: 1}, {visible: false, user:"", player: 0, column: 2}, {visible: false, user:"", player: 0, column: 3}, {visible: false, user:"", player: 0, column: 4}, {visible: false, user:"", player: 0, column: 5}, {visible: false, user:"", player: 0, column: 6}]    
+          [{visible: false, player: 0, column: 0}, {visible: false, player: 0, column: 1}, {visible: false, player: 0, column: 2}, {visible: false, player: 0, column: 3}, {visible: false, player: 0, column: 4}, {visible: false, player: 0, column: 5}, {visible: false, player: 0, column: 6}]    
         ];
 
         this.board = [

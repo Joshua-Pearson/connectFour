@@ -1,7 +1,8 @@
 <div class="container">
   <h2 class="winner my-show-hide-animation" ng-show="game.winner">Player {{game.winner.playerNumber}} WINS!</h2>
-  <h4 class="turn">Player {{game.currentPlayer.playerNumber}}'s Turn</h4>
-   <button type="button" class="btn btn-success  my-show-hide-animation" ng-click="game.newGame()" ng-hide="game.moveCount > 1" id="new_game_button" ng-animate="'animate'">New Game</button>
+  <h4 class="turn" ng-hide="game.winner || game.draw">Player {{game.currentPlayer.playerNumber}}'s Turn</h4>
+  <button type="button" class="btn btn-success  my-show-hide-animation" ng-click="game.newGame()" ng-hide="game.moveCount > 1" ng-show="game.winner || game.draw" id="new_game_button" ng-animate="'animate'">New Game</button>
+  <button type="button" class="btn btn-danger  my-show-hide-animation" ng-click="game.giveUp()" ng-show="game.moveCount > 1" id="new_game_button" ng-animate="'animate'">Concede Defeat</button>
 
   <div class="placeholders centered">
     <table table-bordered>
