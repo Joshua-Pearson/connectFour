@@ -6,7 +6,7 @@
     return {
       restrict: "E",
       templateUrl: "partials/main-game.ejs",
-      controller: function() {
+      controller: function($scope) {
         this.moveCount = 1;
         var _this = this;
         this.currentPlayer = {};
@@ -52,7 +52,13 @@
             var anotherCircle = movedCircle;
             var anotherArray = moveArray;
             var counter = 0;
-            setInterval(function() { counter++; if (counter <= movedCircle.row) { someAnimation(currentPlayer, anotherCircle, anotherArray, counter); } }, 100);
+            setInterval(function() { 
+              counter++; 
+              if (counter <= movedCircle.row) { 
+                someAnimation(currentPlayer, anotherCircle, anotherArray, counter);
+                $scope.$digest();
+              } 
+            }, 100);
             this.moveCount ++;
             this.determinePlayer();
           } else {

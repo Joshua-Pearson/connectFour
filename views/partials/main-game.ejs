@@ -7,7 +7,7 @@
     <table table-bordered>
       <tbody>
         <tr ng-repeat="placeholders in game.placeholders">
-          <td ng-repeat="placeholder in placeholders" class="placeholder" ng-mouseenter="game.showPlaceholderOnTop(placeholder)" ng-mouseleave="game.hidePlaceholderOnTop(placeholder)">
+          <td ng-repeat="placeholder in placeholders" class="placeholder"  ng-mouseenter="game.showPlaceholderOnTop(placeholder)" ng-mouseleave="game.hidePlaceholderOnTop(placeholder)">
             <div class="circle" ng-class="{ 'circle visible-true player-2'  : (placeholder.visible === true && placeholder.player.playerNumber === 2), 'circle visible-true player-1'  : (placeholder.visible === true && placeholder.player.playerNumber === 1), 'circle'  : placeholder.visible === false, 'circle'  : placeholder.visible === false }"></div>
           </td>
         </tr>
