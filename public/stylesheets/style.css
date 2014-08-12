@@ -17,12 +17,12 @@ body {
 }
 
 table tbody tr td.placeholder {
-  padding: 3.8em;
+  padding: 1em;
 }
 
 table tbody tr td.placeholder .circle {
   padding: 3em;
-  background-color: #fff; 
+  background-color: gray;
   border-radius: 50%; 
   cursor: pointer;
 }
@@ -71,7 +71,7 @@ table tbody tr td.placeholder .circle.visible-true.player-2 {
   -webkit-transition:0.2s linear all;
   transition:0.2s linear all;
   display:block!important;
-  opacity:1;
+  opacity: 1;
 }
 
 .my-show-hide-animation.ng-hide {
