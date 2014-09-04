@@ -30,6 +30,10 @@
         };
 
         this.move = function(circle) {
+          if (this.winner !== false) {
+            alert("game over!");
+            return
+          }
           this.determinePlayer();
           var currentPlayer = this.currentPlayer;
           var movedCircle;
@@ -59,9 +63,10 @@
               } 
             }, 100);
             movedCircle.player = currentPlayer;
-            movedCircle.animation = true;
             movedCircle.isPlayed = true;
-            checkForWin(currentPlayer);
+            if (this.moveCount > 4) {
+              this.checkForWin(currentPlayer);
+            }
             this.moveCount ++;
             this.determinePlayer();
           } else {
@@ -69,7 +74,9 @@
             movedCircle.player = currentPlayer;
             movedCircle.animation = true;
             movedCircle.isPlayed = true;
-            checkForWin(currentPlayer);
+            if (this.moveCount > 4) {
+              this.checkForWin(currentPlayer);
+            }
             this.moveCount ++;
             this.determinePlayer();
           }
@@ -118,7 +125,22 @@
         };
 
         this.checkForWin = function(currentPlayer) {
-
+          console.log("in check for win");
+          var currentPlayerMoves = [];
+          this.board.forEach(function(array) {
+            array.forEach(function(circle) {
+              //circle is each game move available on the board.
+              if (circle.player === currentPlayer && circle.isPlayed === true) {
+                //pushes each current player's moves into an array that will be checked for winning combinations.
+                currentPlayerMoves.push(circle);
+              }
+              return currentPlayerMoves;
+            });
+            return currentPlayerMoves;
+          });
+          console.log(currentPlayerMoves);
+          // alert("Player " + currentPlayer.playerNumber + " is the winner")
+          // this.winner = currentPlayer;
         };
 
         this.giveUp = function() {
