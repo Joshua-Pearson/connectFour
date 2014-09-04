@@ -59,7 +59,11 @@ table tbody tr td.placeholder .circle.visible-true.player-2 {
 }
 
 #new_game_button {
-  width: 20%;
+  width: 15%;
+}
+
+#defeat_button {
+  width: 15%;
 }
 
 .winner {

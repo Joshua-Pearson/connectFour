@@ -6,12 +6,11 @@
     return {
       restrict: "E",
       templateUrl: "partials/main-game.ejs",
-      controller: function($scope) {
+      controller: function($scope, $interval) {
         this.moveCount = 1;
         this.draw = false;
         this.winner = false;
         var _this = this;
-        this.currentPlayer = {};
 
         function player(playerNumber, playerNumberMoves) {
           this.playerNumber = playerNumber;
@@ -20,6 +19,7 @@
 
         this.playerOne = new player(1, []);
         this.playerTwo = new player(2, []);
+        this.currentPlayer = this.playerOne;
 
         this.determinePlayer = function() {
           if (this.moveCount % 2 === 0) {
@@ -56,11 +56,10 @@
           //this does a basic animation by coloring each circle for 100ms with currentPlayer's color and then taking it away.
           if (movedCircle !== undefined && movedCircle.row !== 0) {
             var counter = 0;
-            setInterval(function() { 
+            $interval(function() {
               counter++; 
               if (counter <= movedCircle.row) { 
                 someAnimation(currentPlayer, movedCircle, moveArray, counter);
-                $scope.$digest();
               } 
             }, 100);
             movedCircle.player = currentPlayer;
@@ -111,7 +110,7 @@
 
         this.newGame = function() {
           this.moveCount = 1;
-          this.currentPlayer = {};
+          this.currentPlayer = this.playerOne;
           this.draw = false;
           this.winner = false;
           this.placeholders = [
@@ -148,10 +147,10 @@
           console.log(playersColumns);
           console.log(playersRows);
           console.log(playersDiagonals);
-          // if (playersRows.length > 3 || playersDiagonals.length > 3 || playersColumns.length > 3) {
-          //   alert("Player " + currentPlayer.playerNumber + " is the winner")
-          //   this.winner = currentPlayer;
-          // }
+          if (playersRows.length > 2 || playersDiagonals.length > 2 || playersColumns.length > 2) {
+            this.winner = currentPlayer;
+            alert("Player " + currentPlayer.playerNumber + " is the winner");
+          }
         };
 
         this.giveUp = function() {
