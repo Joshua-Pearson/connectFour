@@ -13,12 +13,13 @@
         var _this = this;
         this.currentPlayer = {};
 
-        function player(playerNumber) {
+        function player(playerNumber, playerNumberMoves) {
           this.playerNumber = playerNumber;
+          this.playerNumberMoves = playerNumberMoves
         };
 
-        this.playerOne = new player(1)
-        this.playerTwo = new player(2)
+        this.playerOne = new player(1, []);
+        this.playerTwo = new player(2, []);
 
         this.determinePlayer = function() {
           if (this.moveCount % 2 === 0) {
@@ -64,8 +65,9 @@
             }, 100);
             movedCircle.player = currentPlayer;
             movedCircle.isPlayed = true;
-            if (this.moveCount > 4) {
-              this.checkForWin(currentPlayer);
+            currentPlayer.playerNumberMoves.push(movedCircle);
+            if (this.moveCount > 6) {
+              this.checkForWin(currentPlayer, movedCircle);
             }
             this.moveCount ++;
             this.determinePlayer();
@@ -74,8 +76,9 @@
             movedCircle.player = currentPlayer;
             movedCircle.animation = true;
             movedCircle.isPlayed = true;
-            if (this.moveCount > 4) {
-              this.checkForWin(currentPlayer);
+            currentPlayer.playerNumberMoves.push(movedCircle);
+            if (this.moveCount > 6) {
+              this.checkForWin(currentPlayer, movedCircle);
             }
             this.moveCount ++;
             this.determinePlayer();
@@ -124,23 +127,31 @@
           ];
         };
 
-        this.checkForWin = function(currentPlayer) {
-          console.log("in check for win");
-          var currentPlayerMoves = [];
-          this.board.forEach(function(array) {
-            array.forEach(function(circle) {
-              //circle is each game move available on the board.
-              if (circle.player === currentPlayer && circle.isPlayed === true) {
-                //pushes each current player's moves into an array that will be checked for winning combinations.
-                currentPlayerMoves.push(circle);
-              }
-              return currentPlayerMoves;
-            });
-            return currentPlayerMoves;
+        this.checkForWin = function(currentPlayer, movedCircle) {
+          var playersColumns = [];
+          var playersRows = [];
+          var playersDiagonals = [];
+          var arrayToBeCheckedForWin = currentPlayer.playerNumberMoves;
+          console.log("array is " + arrayToBeCheckedForWin);
+          arrayToBeCheckedForWin.forEach(function(eachPlayedMove) {
+            if (movedCircle.row === eachPlayedMove.row) {
+              playersRows.push(eachPlayedMove);
+            } else if (movedCircle.index === eachPlayedMove.index) {
+              playersColumns.push(eachPlayedMove);
+            } else if (Math.abs(movedCircle.index - eachPlayedMove.index) === 1 || Math.abs(movedCircle.row - eachPlayedMove.row) === 1) {
+              playersDiagonals.push(eachPlayedMove);
+            }
+            return playersColumns;
+            return playersRows;
+            return playersDiagonals;
           });
-          console.log(currentPlayerMoves);
-          // alert("Player " + currentPlayer.playerNumber + " is the winner")
-          // this.winner = currentPlayer;
+          console.log(playersColumns);
+          console.log(playersRows);
+          console.log(playersDiagonals);
+          // if (playersRows.length > 3 || playersDiagonals.length > 3 || playersColumns.length > 3) {
+          //   alert("Player " + currentPlayer.playerNumber + " is the winner")
+          //   this.winner = currentPlayer;
+          // }
         };
 
         this.giveUp = function() {
