@@ -42,28 +42,34 @@
               return moveArray;
             });
           });
+          //var movedCircle will either be undefined if the entire row is played or will be the lowest circle not played.
           movedCircle = _.findLast(moveArray, { isPlayed: false });
           if (movedCircle === undefined) {
             alert("illegal move");
             return;
           }
+          //this does a basic animation by coloring each circle for 100ms with currentPlayer's color and then taking it away.
           if (movedCircle !== undefined && movedCircle.row !== 0) {
-            var anotherCircle = movedCircle;
-            var anotherArray = moveArray;
             var counter = 0;
             setInterval(function() { 
               counter++; 
               if (counter <= movedCircle.row) { 
-                someAnimation(currentPlayer, anotherCircle, anotherArray, counter);
+                someAnimation(currentPlayer, movedCircle, moveArray, counter);
                 $scope.$digest();
               } 
             }, 100);
-            this.moveCount ++;
-            this.determinePlayer();
-          } else {
             movedCircle.player = currentPlayer;
             movedCircle.animation = true;
             movedCircle.isPlayed = true;
+            checkForWin(currentPlayer);
+            this.moveCount ++;
+            this.determinePlayer();
+          } else {
+            //this applies only to the last move in each row, no need for animation.
+            movedCircle.player = currentPlayer;
+            movedCircle.animation = true;
+            movedCircle.isPlayed = true;
+            checkForWin(currentPlayer);
             this.moveCount ++;
             this.determinePlayer();
           }
@@ -111,7 +117,7 @@
           ];
         };
 
-        this.checkForWin = function() {
+        this.checkForWin = function(currentPlayer) {
 
         };
 
