@@ -59,7 +59,7 @@
             $interval(function() {
               counter++; 
               if (counter <= movedCircle.row) { 
-                someAnimation(currentPlayer, movedCircle, moveArray, counter);
+                animate(currentPlayer, movedCircle, moveArray, counter);
               } 
             }, 100);
             movedCircle.player = currentPlayer;
@@ -84,7 +84,7 @@
           }
         };
 
-        var someAnimation = function(player, circle, array, counter) {
+        var animate = function(player, circle, array, counter) {
           if (array[counter].row === circle.row) {
             array[counter].player = player;
             array[counter].animation = true;
@@ -126,28 +126,45 @@
           ];
         };
 
-        this.checkForWin = function(currentPlayer, movedCircle) {
+        this.checkForWin = function(currentPlayer, lastMove) {
+          var checkedRow = lastMove.row;
+          var checkedColumn = lastMove.index;
           var playersColumns = [];
           var playersRows = [];
-          var playersDiagonals = [];
-          var arrayToBeCheckedForWin = currentPlayer.playerNumberMoves;
-          console.log("array is " + arrayToBeCheckedForWin);
-          arrayToBeCheckedForWin.forEach(function(eachPlayedMove) {
-            if (movedCircle.row === eachPlayedMove.row) {
-              playersRows.push(eachPlayedMove);
-            } else if (movedCircle.index === eachPlayedMove.index) {
-              playersColumns.push(eachPlayedMove);
-            } else if (Math.abs(movedCircle.index - eachPlayedMove.index) === 1 || Math.abs(movedCircle.row - eachPlayedMove.row) === 1) {
-              playersDiagonals.push(eachPlayedMove);
+          var playersRightDiagonals = [];
+          var playersLeftDiagonals = [];
+          var allCurrentPlayersPreviousMoves = currentPlayer.playerNumberMoves;
+          allCurrentPlayersPreviousMoves.forEach(function(currentPlayersPreviousMove) {
+            if (checkedRow === currentPlayersPreviousMove.row && Math.abs(lastMove.index - currentPlayersPreviousMove.index) <= 3 && currentPlayersPreviousMove !== lastMove) {
+              playersRows.push(currentPlayersPreviousMove);
+            } else if (checkedColumn === currentPlayersPreviousMove.index && Math.abs(checkedRow - currentPlayersPreviousMove.row) <= 3 && currentPlayersPreviousMove !== lastMove) {
+              playersColumns.push(currentPlayersPreviousMove);
+            } else if ((checkedRow - currentPlayersPreviousMove.row === -1 && checkedColumn - currentPlayersPreviousMove.index === 1) || (checkedRow - currentPlayersPreviousMove.row === 1 && checkedColumn - currentPlayersPreviousMove.index === -1)) {
+              playersLeftDiagonals.push(currentPlayersPreviousMove);
+            } else if ((checkedRow - currentPlayersPreviousMove.row === -2 && checkedColumn - currentPlayersPreviousMove.index === 2) || (checkedRow - currentPlayersPreviousMove.row === 2 && checkedColumn - currentPlayersPreviousMove.index === -2)) {
+              playersLeftDiagonals.push(currentPlayersPreviousMove);
+            } else if ((checkedRow - currentPlayersPreviousMove.row === -3 && checkedColumn - currentPlayersPreviousMove.index === 3) || (checkedRow - currentPlayersPreviousMove.row === 3 && checkedColumn - currentPlayersPreviousMove.index === -3)) {
+              playersLeftDiagonals.push(currentPlayersPreviousMove);
+            } else if ((checkedRow - currentPlayersPreviousMove.row === 1 && checkedColumn - currentPlayersPreviousMove.index === -1) || (checkedRow - currentPlayersPreviousMove.row === -1 && checkedColumn - currentPlayersPreviousMove.index === 1)) {
+              playersRightDiagonals.push(currentPlayersPreviousMove);
+            } else if ((checkedRow - currentPlayersPreviousMove.row === 2 && checkedColumn - currentPlayersPreviousMove.index === -2) || (checkedRow - currentPlayersPreviousMove.row === -2 && checkedColumn - currentPlayersPreviousMove.index === 2)) {
+              playersRightDiagonals.push(currentPlayersPreviousMove);
+            } else if ((checkedRow - currentPlayersPreviousMove.row === 3 && checkedColumn - currentPlayersPreviousMove.index === -3) || (checkedRow - currentPlayersPreviousMove.row === -3 && checkedColumn - currentPlayersPreviousMove.index === 3)) {
+              playersRightDiagonals.push(currentPlayersPreviousMove);
             }
             return playersColumns;
             return playersRows;
             return playersDiagonals;
           });
-          console.log(playersColumns);
+          playersRows.push(lastMove);
+          playersColumns.push(lastMove);
+          playersLeftDiagonals.push(lastMove);
+          playersRightDiagonals.push(lastMove);
           console.log(playersRows);
-          console.log(playersDiagonals);
-          if (playersRows.length > 2 || playersDiagonals.length > 2 || playersColumns.length > 2) {
+          console.log(playersColumns);
+          console.log(playersLeftDiagonals);
+          console.log(playersRightDiagonals);
+          if (playersRows.length > 3 || playersLeftDiagonals.length > 3 || playersColumns.length > 3 || playersRightDiagonals > 3) {
             this.winner = currentPlayer;
             alert("Player " + currentPlayer.playerNumber + " is the winner");
           }
