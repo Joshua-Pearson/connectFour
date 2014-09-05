@@ -20,7 +20,7 @@
       <tbody>
         <tr ng-repeat="row in game.board">
           <td class="position" ng-repeat="column in row track by $index" ng-click="game.move(column)" ng-mouseenter="game.showPlaceholder(column)" ng-mouseleave="game.hidePlaceholder(column)">
-            <div class="circle" ng-class="{ 'circle filled-true-2'  : (column.animation === true && column.player.playerNumber === 2), 'circle filled-true-1'  : (column.animation === true && column.player.playerNumber === 1), 'circle'  : column.animation === false, 'circle'  : column.animation === false }"></div>
+            <div class="circle" ng-class="{ 'circle filled-true-2'  : (column.animation === true && column.player.playerNumber === 2), 'circle filled-true-1'  : (column.animation === true && column.player.playerNumber === 1), 'circle'  : column.animation === false, 'circle'  : column.animation === false }"> </div>
           </td>
         </tr>
       </tbody>
