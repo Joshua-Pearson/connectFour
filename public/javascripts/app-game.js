@@ -145,26 +145,23 @@
               playersLeftDiagonals.push(currentPlayersPreviousMove);
             } else if ((checkedRow - currentPlayersPreviousMove.row === -3 && checkedColumn - currentPlayersPreviousMove.index === 3) || (checkedRow - currentPlayersPreviousMove.row === 3 && checkedColumn - currentPlayersPreviousMove.index === -3)) {
               playersLeftDiagonals.push(currentPlayersPreviousMove);
-            } else if ((checkedRow - currentPlayersPreviousMove.row === 1 && checkedColumn - currentPlayersPreviousMove.index === -1) || (checkedRow - currentPlayersPreviousMove.row === -1 && checkedColumn - currentPlayersPreviousMove.index === 1)) {
+            } else if ((checkedRow - currentPlayersPreviousMove.row === 1 && checkedColumn - currentPlayersPreviousMove.index === 1) || (checkedRow - currentPlayersPreviousMove.row === -1 && checkedColumn - currentPlayersPreviousMove.index === -1)) {
               playersRightDiagonals.push(currentPlayersPreviousMove);
-            } else if ((checkedRow - currentPlayersPreviousMove.row === 2 && checkedColumn - currentPlayersPreviousMove.index === -2) || (checkedRow - currentPlayersPreviousMove.row === -2 && checkedColumn - currentPlayersPreviousMove.index === 2)) {
+            } else if ((checkedRow - currentPlayersPreviousMove.row === 2 && checkedColumn - currentPlayersPreviousMove.index === 2) || (checkedRow - currentPlayersPreviousMove.row === -2 && checkedColumn - currentPlayersPreviousMove.index === -2)) {
               playersRightDiagonals.push(currentPlayersPreviousMove);
-            } else if ((checkedRow - currentPlayersPreviousMove.row === 3 && checkedColumn - currentPlayersPreviousMove.index === -3) || (checkedRow - currentPlayersPreviousMove.row === -3 && checkedColumn - currentPlayersPreviousMove.index === 3)) {
+            } else if ((checkedRow - currentPlayersPreviousMove.row === 3 && checkedColumn - currentPlayersPreviousMove.index === 3) || (checkedRow - currentPlayersPreviousMove.row === -3 && checkedColumn - currentPlayersPreviousMove.index === -3)) {
               playersRightDiagonals.push(currentPlayersPreviousMove);
             }
-            return playersColumns;
             return playersRows;
-            return playersDiagonals;
+            return playersColumns;
+            return playersLeftDiagonals;
+            return playersRightDiagonals;
           });
           playersRows.push(lastMove);
           playersColumns.push(lastMove);
           playersLeftDiagonals.push(lastMove);
           playersRightDiagonals.push(lastMove);
-          console.log(playersRows);
-          console.log(playersColumns);
-          console.log(playersLeftDiagonals);
-          console.log(playersRightDiagonals);
-          if (playersRows.length > 3 || playersLeftDiagonals.length > 3 || playersColumns.length > 3 || playersRightDiagonals > 3) {
+          if (playersRows.length > 3 || playersLeftDiagonals.length > 3 || playersColumns.length > 3 || playersRightDiagonals.length > 3) {
             this.winner = currentPlayer;
             alert("Player " + currentPlayer.playerNumber + " is the winner");
           }
